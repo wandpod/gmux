@@ -1,0 +1,36 @@
+gmux License
+
+Copyright (c) 2026 Nikita Tsymbal. All rights reserved.
+
+gmux is proprietary software; its source code is not published. This license
+covers the gmux binaries, archives, packages and container images published
+through wandpod.com and github.com/wandpod (the "Software").
+
+1. Use. You may install and run the Software free of charge, for any purpose,
+   including commercial use.
+
+2. Redistribution. You may redistribute unmodified copies of the Software,
+   including through package repositories, binary caches, container images
+   and mirrors, provided that this license and THIRD_PARTY_NOTICES accompany
+   every copy.
+
+3. Restrictions. You may not modify, adapt or create derivative works of the
+   Software, and you may not reverse engineer, decompile or disassemble it,
+   except to the extent applicable law expressly permits this despite this
+   restriction.
+
+4. Third-party components. The Software includes open source components that
+   are licensed under their own terms, listed in THIRD_PARTY_NOTICES. Those
+   terms govern those components and prevail over this license for them.
+
+5. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+   KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+6. Limitation of liability. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+   OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+   THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+7. Termination. This license terminates automatically if you breach it. On
+   termination you must stop using and distributing the Software.
