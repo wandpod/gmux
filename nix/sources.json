@@ -1,5 +1,5 @@
 {
-  "version": "0.1.163",
+  "version": "0.1.164",
   "releaseTargets": [
     "linux/amd64",
     "linux/arm64",
@@ -9,12 +9,12 @@
     "windows/arm64"
   ],
   "hashes": {
-    "gmux-agent-binaries.tar.gz": "sha256-Nc/zt46XjXkideMINyyXUvOjshDPrFHeEn32wcoQK5Q=",
-    "gmux-darwin-arm64.tar.gz": "sha256-k3Ho5YZ5MiDxCoADheVdyYeRzlFynWQjoQk1zqgJfjw=",
-    "gmux-linux-amd64.tar.gz": "sha256-wCFjZ4fK9w1tmzHL7rMCD19pZq+auC7uoT7QbobayuM=",
-    "gmux-linux-arm.tar.gz": "sha256-HUrmnC0pqAuxsGGzjPj1CpT+xxvmOlmOcmfGoygpwUc=",
-    "gmux-linux-arm64.tar.gz": "sha256-zuNxrSx5Q/ZpOW0/nvby5ECYdcdPPXwYuzmPeaHXh1E=",
-    "gmux-windows-amd64.tar.gz": "sha256-nQqyBe4KGBvNjBkMngOsn6Wuxqn5xQA0SorWrThFH8I=",
-    "gmux-windows-arm64.tar.gz": "sha256-UuKo23k3uJIIv5qNe1xdz9PT1EvxurpvjPd+Siq88WQ="
+    "gmux-agent-binaries.tar.gz": "sha256-lE1LXK0l9xzYuAi06eOngsDN2NTougRiDlqhlzGOocY=",
+    "gmux-darwin-arm64.tar.gz": "sha256-IgLn5+W53AHrheHKmgSdkEvk0dWI7HfyXmId6AYrz7w=",
+    "gmux-linux-amd64.tar.gz": "sha256-IUHlrA7KStHUvcQz9ykiLiY+xVvOO6Bu33ssC+zZXhA=",
+    "gmux-linux-arm.tar.gz": "sha256-JERZeReeBCYxpV8s4mskOvvXrVzpfwSYr6UcavEzUjs=",
+    "gmux-linux-arm64.tar.gz": "sha256-+nrx75t1+sXNnzzvN5YDosAerBltBbD8QKJZOA0xrN0=",
+    "gmux-windows-amd64.tar.gz": "sha256-VWqHXA/lxwCKZmSTh682Oo3GNipW/jEDfYmO6JuCFxQ=",
+    "gmux-windows-arm64.tar.gz": "sha256-l+3Wwk62xVERsQnI80838lJHnnySnoS9N6CPyrOAwXI="
   }
 }
