@@ -14,9 +14,11 @@ die() {
     exit 1
 }
 
-# fetch URL DEST: download or name the URL that failed.
+# fetch URL DEST [progress]: download or name the URL that failed. The bar shows only on a terminal.
 fetch() {
-    status=$(curl -sSL -o "$2" -w '%{http_code}' "$1") || die "cannot reach $1"
+    quiet=-s
+    [ -n "${3:-}" ] && [ -t 2 ] && quiet=-#
+    status=$(curl "$quiet" -SL -o "$2" -w '%{http_code}' "$1") || die "cannot reach $1"
     [ "$status" = 200 ] || die "HTTP $status for $1"
 }
 
@@ -45,9 +47,14 @@ VERSION="${VERSION#v}"
 [ -n "$VERSION" ] || die "empty version from ${BASE}/version"
 
 ARCHIVE="gmux-${OS}-${ARCH}.tar.gz"
-echo "Installing gmux ${VERSION} (${OS}/${ARCH})..."
-fetch "${BASE}/${VERSION}/${ARCHIVE}" "${TMP}/${ARCHIVE}"
+BUNDLE="gmux-agent-binaries.tar.gz"
+echo "Downloading gmux ${VERSION} (${OS}/${ARCH})..."
+fetch "${BASE}/${VERSION}/${ARCHIVE}" "${TMP}/${ARCHIVE}" progress
 tar xzf "${TMP}/${ARCHIVE}" -C "$TMP"
+# Every download finishes before the first sudo prompt, so nothing slow follows it.
+echo "Downloading agent binaries for all platforms..."
+fetch "${BASE}/${VERSION}/${BUNDLE}" "${TMP}/${BUNDLE}" progress
+echo "Installing to ${INSTALL_DIR}..."
 
 # Rename, never overwrite: macOS kills the next exec of a rewritten running binary.
 install_file() {
@@ -71,8 +78,6 @@ install_file() {
 
 install_file "${TMP}/gmux" "${INSTALL_DIR}/gmux" 755
 
-BUNDLE="gmux-agent-binaries.tar.gz"
-fetch "${BASE}/${VERSION}/${BUNDLE}" "${TMP}/${BUNDLE}"
 AGENT_DIR="${PREFIX}/lib/gmux"
 if mkdir -p "$AGENT_DIR" 2>/dev/null && [ -w "$AGENT_DIR" ]; then
     tar xzf "${TMP}/${BUNDLE}" -C "$AGENT_DIR"
