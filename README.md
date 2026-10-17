@@ -22,8 +22,20 @@ The installer puts `gmux` in `/usr/local/bin` (override with
 Nushell and PowerShell. `GMUX_VERSION=0.1.161` pins a version.
 `gmux upgrade` installs the latest release later.
 
-Direct downloads (Windows, `.deb`, Arch `PKGBUILD`) are on the
-[releases page](https://github.com/wandpod/gmux/releases). Stable links:
+Windows (PowerShell, no administrator needed):
+
+```powershell
+irm https://get.wandpod.com/gmux.ps1 | iex
+```
+
+The installer puts `gmux.exe` and the agent bundle in
+`%LOCALAPPDATA%\Programs\gmux` (override with `GMUX_INSTALL_DIR`), adds that
+directory to the user `PATH` and offers to activate PowerShell completion.
+`GMUX_VERSION` pins a version and `gmux upgrade` works the same way. Windows 10
+1809 or later, AMD64 or ARM64.
+
+Direct downloads (`.deb`, Arch `PKGBUILD`, the per-platform archives) are on
+the [releases page](https://github.com/wandpod/gmux/releases). Stable links:
 
 ```text
 https://get.wandpod.com/gmux/latest/gmux-linux-amd64.tar.gz
