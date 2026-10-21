@@ -1,7 +1,5 @@
 # gmux installer for Windows: irm https://get.wandpod.com/gmux.ps1 | iex
-# Env: GMUX_VERSION (default latest), GMUX_INSTALL_DIR (default
-# %LOCALAPPDATA%\Programs\gmux), GMUX_COMPLETION_INSTALL (1 force, 0 skip),
-# GMUX_DOWNLOAD_BASE. The layout itself is `gmux.exe install`.
+# Options: https://github.com/wandpod/gmux#install. The layout itself is `gmux.exe install`.
 # Isolate bootstrap variables from the caller's interactive session.
 & {
     $ErrorActionPreference = 'Stop'
@@ -37,11 +35,8 @@
         tar.exe -xzf $Archive -C $Tmp
         if ($LASTEXITCODE -ne 0) { throw "gmux install: tar.exe failed to extract $Archive (exit $LASTEXITCODE)" }
 
-        & (Join-Path $Tmp 'gmux.exe') install --dir $Dir --bundle $Bundle
+        & (Join-Path $Tmp 'gmux.exe') install --dir $Dir --bundle $Bundle --license-dir $Tmp
         if ($LASTEXITCODE -ne 0) { throw "gmux install: gmux.exe install failed (exit $LASTEXITCODE)" }
-        foreach ($File in 'LICENSE', 'THIRD_PARTY_NOTICES') {
-            Copy-Item -LiteralPath (Join-Path $Tmp $File) -Destination (Join-Path $Dir $File) -Force
-        }
     } finally {
         Remove-Item -LiteralPath $Tmp -Recurse -Force -ErrorAction SilentlyContinue
     }
@@ -51,7 +46,7 @@
     $Exe = Join-Path $Dir 'gmux.exe'
     Write-Host "gmux v$Version installed to $Exe"
 
-    # Same contract as install.sh: ask on an interactive prompt, never prompt otherwise.
+    # Non-interactive invocations have nobody to answer a completion prompt.
     $Mode = $env:GMUX_COMPLETION_INSTALL
     if ($Mode -ne '0') {
         $Activate = $Mode -eq '1'
@@ -64,7 +59,12 @@
         }
         if ($Activate) {
             & $Exe completion install powershell
-            if ($LASTEXITCODE -ne 0) { Write-Warning 'completion activation failed; the binary and the adapter beside it were installed.' }
+            # 3: the execution policy blocks the profile and the user may allow scripts; 4: Group Policy blocks it. gmux printed the hint.
+            if ($LASTEXITCODE -eq 3 -and $CanPrompt) {
+                $Answer = Read-Host 'Completion needs local PowerShell scripts allowed for your user. Allow (Set-ExecutionPolicy -Scope CurrentUser RemoteSigned)? [y/N]'
+                if ($Answer -match '^\s*(y|yes)\s*$') { & $Exe completion install powershell --allow-scripts }
+            }
+            if ($LASTEXITCODE -notin 0, 3, 4) { Write-Warning 'completion activation failed; the binary and the adapter beside it were installed.' }
         }
     }
 }

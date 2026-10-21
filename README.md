@@ -16,23 +16,39 @@ Linux and macOS:
 curl -fsSL https://get.wandpod.com/gmux | sh
 ```
 
-The installer puts `gmux` in `/usr/local/bin` (override with
-`GMUX_INSTALL_DIR`, e.g. `$HOME/.local/bin`), the agent bundle in
+The installer puts `gmux` in `/usr/local/bin`, the agent bundle in
 `<prefix>/lib/gmux/agent-binaries`, and shell completion for Bash, Zsh, Fish,
-Nushell and PowerShell. `GMUX_VERSION=0.1.161` pins a version.
-`gmux upgrade` installs the latest release later.
+Nushell and PowerShell.
 
-Windows (PowerShell, no administrator needed):
+Windows 10 1809 or later, AMD64 or ARM64 (PowerShell, no administrator
+needed):
 
 ```powershell
 irm https://get.wandpod.com/gmux.ps1 | iex
 ```
 
-The installer puts `gmux.exe` and the agent bundle in
-`%LOCALAPPDATA%\Programs\gmux` (override with `GMUX_INSTALL_DIR`), adds that
-directory to the user `PATH` and offers to activate PowerShell completion.
-`GMUX_VERSION` pins a version and `gmux upgrade` works the same way. Windows 10
-1809 or later, AMD64 or ARM64.
+The installer puts `gmux.exe`, the agent bundle and PowerShell completion in
+`%LOCALAPPDATA%\Programs\gmux` and adds that directory to the user `PATH`.
+Completion is activated only where the PowerShell execution policy runs
+profile scripts. Under `Restricted` (the default on Windows client editions)
+or `AllSigned` the installer asks, when it can prompt, whether to allow local
+scripts for your user (`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`);
+otherwise, or under a Group Policy setting, it prints how to enable completion
+and leaves the policy alone.
+
+Both installers read these environment variables:
+
+- `GMUX_VERSION`: the version to install instead of the latest, e.g.
+  `0.1.161`.
+- `GMUX_INSTALL_DIR`: the install directory, e.g. `$HOME/.local/bin`.
+- `GMUX_COMPLETION_INSTALL`: `1` activates completion for your user, `0`
+  skips it. Unset, the installer asks on an interactive prompt and never
+  prompts otherwise.
+- `GMUX_DOWNLOAD_BASE`: a mirror serving `<base>/version` and
+  `<base>/<version>/<file>`. `gmux upgrade` reads it too and runs the
+  installer from `<base>` (Linux, macOS) or `<base>.ps1` (Windows).
+
+`gmux upgrade` installs the latest release into the same directory later.
 
 Direct downloads (`.deb`, Arch `PKGBUILD`, the per-platform archives) are on
 the [releases page](https://github.com/wandpod/gmux/releases). Stable links:
